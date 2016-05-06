@@ -3,7 +3,8 @@
     "description": "kolya31093",
     "type": "MIT",
     "require": {
-        "yiisoft/yii": "dev-master"
+        "yiisoft/yii": "dev-master",
+        "2amigos/yii2-ckeditor-widget": "~1.0"
     },
     "license": "MIT",
     "authors": [
