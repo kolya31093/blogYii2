@@ -3,6 +3,8 @@
 namespace app\modules\blog\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use yii\helpers\BaseStringHelper;
 
 /**
  * This is the model class for table "posts".
@@ -15,6 +17,10 @@ use Yii;
  */
 class Posts extends \yii\db\ActiveRecord
 {
+
+    public $image;
+    public $filename;
+    public $string;
     /**
      * @inheritdoc
      */
@@ -29,10 +35,10 @@ class Posts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'text', 'text_preview', 'img'], 'required'],
+            [['title', 'text'], 'required'],
             [['text'], 'string'],
             [['title'], 'string', 'max' => 150],
-            [['text_preview', 'img'], 'string', 'max' => 250],
+            [['text_preview'], 'string', 'max' => 250],
         ];
     }
 
@@ -46,7 +52,30 @@ class Posts extends \yii\db\ActiveRecord
             'title' => 'Title',
             'text' => 'Text',
             'text_preview' => 'Text Preview',
-            'img' => 'Img',
+            'img' => 'Image',
         ];
     }
+
+    public function beforeSave($insert){
+        if ($this->isNewRecord) {
+            //generate & upload
+            $this->string = substr(uniqid('img'), 0, 12); //imgRandomString
+            $this->image = UploadedFile::getInstance($this, 'img');
+            $this->filename = 'static/images/' . $this->string . '.' . $this->image->extension;
+            $this->image->saveAs($this->filename);
+
+            $this->text_preview = BaseStringHelper::truncate($this->text, 250, '...');
+
+            //save
+            $this->img = '/' . $this->filename;
+        }else{
+            $this->image = UploadedFile::getInstance($this, 'img');
+            if($this->image){
+                $this->image->saveAs(substr($this->img, 1));
+            }
+        }
+
+        return parent::beforeSave($insert);
+    }
+
 }

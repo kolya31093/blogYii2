@@ -16,27 +16,13 @@ use himiklab\thumbnail\EasyThumbnailImage;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 150]) ?>
 
-    <?= $form->field($model, 'text')->widget(CKEditor::className(), [
-        'options' => ['rows' => 6],
-        'preset' => 'basic'
-    ]) ?>
+    <?= $form->field($model, 'text')->textarea(['options' => ['rows' => 6]]) ?>
 
     <?= $form->field($model, 'text_preview')->textInput(['maxlength' => 250]) ?>
 
     <?= $form->field($model, 'img')->fileInput() ?>
 
-    <?php if(!$model->isNewRecord){ ?>
-        <div class="form-group">
-        <?= EasyThumbnailImage::thumbnailImg(
-            '@webroot'.$model->img,
-            380,
-            220,
-            EasyThumbnailImage::THUMBNAIL_OUTBOUND,
-            ['alt' => $model->title]
-        );
-        ?>
-        </div>
-    <?php } ?>
+    
 
 
     <div class="form-group">
