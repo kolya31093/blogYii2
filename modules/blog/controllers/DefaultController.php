@@ -49,13 +49,14 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PostsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+       $AllPosts = Posts::find()->all();
 
+       if($AllPosts) {
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'posts' => $AllPosts,
+            
         ]);
+       }
     }
 
     /**

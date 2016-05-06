@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\ckeditor\CKEditor;
-use himiklab\thumbnail\EasyThumbnailImage;
+// use himiklab\thumbnail\EasyThumbnailImage;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\blog\models\Posts */
@@ -16,7 +16,6 @@ use himiklab\thumbnail\EasyThumbnailImage;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 150]) ?>
 
-    <?= $form->field($model, 'text')->textarea(['options' => ['rows' => 6]]) ?>
     <?= $form->field($model, 'text')->widget(CKEditor::className(), [
         'options' => ['rows' => 6],
         'preset' => 'basic'
