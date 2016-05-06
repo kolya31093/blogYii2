@@ -23,14 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
     <?php foreach($posts as $arr) { ?>
-        <div class="row">
+        
           <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-              <img src="..." alt="...">
+              <img src="<?= $arr->img ?>" alt="...">
               <div class="caption">
-                <h3>Thumbnail label</h3>
-                <p>...</p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <h3><?= $arr->title ?></h3>
+                <p><?= $arr->text_preview ?></p>
+                <p><a href="/blog/default/view?id=<?= $arr->id ?>" class="btn btn-primary" role="button">Button</a> </p>
               </div>
             </div>
           </div>
